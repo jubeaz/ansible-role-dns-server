@@ -1,0 +1,9 @@
+{{ ansible_managed | comment(decoration="// ") }}
+
+{% for key, value in named_zones.items() %}
+zone "{{ value['name'] }}" IN {
+    type master;
+    file "{{ value['name'] }}.zone";
+    allow-transfer { {{ value['transfer'] | join("; ") }}; };
+};
+{% endfor %}

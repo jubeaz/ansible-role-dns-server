@@ -1,0 +1,24 @@
+{{ ansible_managed | comment(decoration="// ") }}
+
+{% for key, value in named_acls.items() %}
+acl {{ key }} { {{ value }} ;};
+{% endfor %}
+
+options {
+    directory "/var/named";
+    pid-file "/run/named/named.pid";
+
+    forwarders {
+{% for item in named_forwarders %}
+            {{ item }};
+{% endfor %}
+    };
+    
+{% for key, value in named_options.items() %}
+    {{ key }} { {{ value | join("; ")}}; };
+{% endfor %}
+
+    version none;
+    hostname none;
+    server-id none;
+};

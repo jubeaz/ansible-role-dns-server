@@ -1,0 +1,32 @@
+---
+# defaults file for dns-server
+named_ufw_from: ["192.168.1.0/24"]
+
+named_forwarders: ["8.8.8.8", "4.4.4.4"]
+
+named_acls: {
+  local: "192.168.0.0/16",
+  protected: "192.168.1.0/24",
+  slaves: "192.168.1.1; 192.168.1.2"
+}
+
+named_options: {
+  listen-on-v6: ["none"],
+  listen-on: ["protected"],
+  allow-query: ["local"],
+  allow-recursion: ["protected"],
+  allow-transfer: ["none"],
+  allow-update: ["none"]
+}
+
+named_zones: {
+  test: { 
+    name: "zone.lan",
+    email: "root.zone.lan",
+    transfer: ["none"],
+    content: [
+      ["A", "name", "IP", "comment"],
+      ["CNAME", "alias", "name", "comment"]
+    ]
+  }
+}

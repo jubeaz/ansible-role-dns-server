@@ -1,0 +1,6 @@
+- name: Install to do
+  debug:
+    msg: "todo"
+- name: "Ubuntu create named zone dir"
+  debug:
+    msg: "todo"

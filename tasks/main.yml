@@ -1,0 +1,46 @@
+---
+# tasks file for dns-server
+
+- include_tasks: asserts.yml
+
+- include_tasks: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
+- include_tasks: arch.yml
+  when: ansible_distribution == "Archlinux"
+
+    #- name: 
+    #  debug:
+    #    var: ansible_facts
+- name: Get installed packages
+  package_facts:
+    manager: "auto"
+
+- name: Add ufw i allow rules
+  ufw:
+    rule: allow
+    direction: in
+    src: '{{ item }}'
+    to_port: 53
+    state: enabled
+  when: "'ufw' in ansible_facts.packages"
+  with_items: "{{ named_ufw_from }}"
+
+- name: Create config
+  template: 
+    src: "{{ item.key }}.j2"
+    dest: "{{ item.value['dest'] }}/{{ item.key }}"
+    group: "{{ _named_group }}"
+    owner: "{{ _named_user }}"
+    mode: "{{ item.value['mode'] }}"
+  with_dict: "{{ _templates }}"
+  notify: Restart bind
+
+- name: Create local zone files
+  template:
+    src: templates/local.zone.j2
+    dest: "{{ _named_zone_dir }}/{{ item.value['name'] }}.zone"
+    group: "{{ _named_group }}"
+    owner: "{{ _named_user }}"
+    mode: 0640
+  with_dict: "{{ named_zones }}"
+  notify: Reload zones
