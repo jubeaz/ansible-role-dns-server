@@ -8,14 +8,11 @@
 - include_tasks: arch.yml
   when: ansible_distribution == "Archlinux"
 
-    #- name: 
-    #  debug:
-    #    var: ansible_facts
 - name: Get installed packages
   package_facts:
     manager: "auto"
 
-- name: Add ufw i allow rules
+- name: Add ufw allow rules
   ufw:
     rule: allow
     direction: in
