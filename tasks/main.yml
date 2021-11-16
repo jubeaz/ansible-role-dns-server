@@ -39,5 +39,5 @@
     group: "{{ _named_group }}"
     owner: "{{ _named_user }}"
     mode: 0640
-  with_dict: "{{ named_zones }}"
+  with_dict: "{{ named_master_zones }}"
   notify: Reload zones

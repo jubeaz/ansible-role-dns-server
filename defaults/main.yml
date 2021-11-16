@@ -9,6 +9,8 @@ named_acls: {
   slaves: ["192.168.1.1; 192.168.1.2"]
 }
 
+named_primaries: {}
+
 named_acl_options: {
   listen-on-v6: ["none"],
   listen-on: ["trusted"],
@@ -24,20 +26,27 @@ named_list_options: {
 }
 
 named_atomic_options: {
-  notify: "no",
-  transfert-format: "many-answers",
+  notify: "false",
+  transfer-format: "many-answers",
   max-transfer-time-in: "60"
 }
 
-named_zones: {
+named_master_zones: {
   test: {
     name: "zone.lan",
-    type: "primary",
     email: "root.zone.lan",
     link: ["slaves"],
     content: [
       ["A", "name", "IP", "comment"],
       ["CNAME", "alias", "name", "comment"]
     ]
+  }
+}
+
+named_slaves_zones: {
+  test: {
+    name: "zone.lan",
+    type: "primary",
+    link: ["slaves"],
   }
 }

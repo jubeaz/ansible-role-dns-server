@@ -8,6 +8,14 @@ acl {{ key }} {
 };
 {% endfor %}
 
+{% for key, value in named_primaries.items() %}
+primaries {{ key }} { 
+    {% for item in value %}
+    {{ item }} ;
+    {% endfor %}
+};
+{% endfor %}
+
 options {
     directory "{{ _named_zone_dir }}";
     pid-file "/run/named/named.pid";

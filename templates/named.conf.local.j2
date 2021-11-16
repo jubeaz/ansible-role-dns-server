@@ -1,13 +1,17 @@
 {{ ansible_managed | comment(decoration="// ") }}
 
-{% for key, value in named_zones.items() %}
+{% for key, value in named_master_zones.items() %}
 zone "{{ value['name'] }}" IN {
-    type {{ value['type'] }};
+    type primary;
     file "{{ value['name'] }}.zone";
-{% if value['type'] == 'primary' %}
-    allow-transfer { {{ value['link'] | join("; ") }}; };
-{% else %}
-    masters { {{ value['link'] | join("; ") }}; };
-{% endif %}
+    allow-transfer { {{ value['dest'] | join("; ") }}; };
+};
+{% endfor %}
+
+{% for key, value in named_slave_zones.items() %}
+zone "{{ value['name'] }}" IN {
+    type secondary;
+    file "{{ value['name'] }}.zone";
+    masters { {{ value['src'] | join("; ") }}; };
 };
 {% endfor %}
