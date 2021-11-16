@@ -1,6 +1,5 @@
 - name: Install bind lastest
   pacman:
     name: bind
-    state: latest
-    update_cache: yes
-
+    state: present
+    update_cache: true

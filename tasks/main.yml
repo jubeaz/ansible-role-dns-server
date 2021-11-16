@@ -23,7 +23,7 @@
   with_items: "{{ named_ufw_from }}"
 
 - name: Create config
-  template: 
+  template:
     src: "{{ item.key }}.j2"
     dest: "{{ item.value['dest'] }}/{{ item.key }}"
     group: "{{ _named_group }}"
@@ -40,4 +40,4 @@
     owner: "{{ _named_user }}"
     mode: 0640
   with_dict: "{{ named_master_zones }}"
-  notify: Reload zones
+  notify: Restart bind

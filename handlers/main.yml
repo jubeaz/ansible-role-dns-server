@@ -5,13 +5,3 @@
     name: named
     state: restarted
     enabled: true
-
-- name: Reload zones
-  service:
-    name: named
-    state: restarted
-    enabled: true
-
-      #- name: Reload zones
-      #  command: 
-      #    cmd: rndc reload 

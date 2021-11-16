@@ -35,7 +35,7 @@ named_master_zones: {
   test: {
     name: "zone.lan",
     email: "root.zone.lan",
-    link: ["slaves"],
+    dest: ["slaves"],
     content: [
       ["A", "name", "IP", "comment"],
       ["CNAME", "alias", "name", "comment"]
@@ -47,6 +47,6 @@ named_slaves_zones: {
   test: {
     name: "zone.lan",
     type: "primary",
-    link: ["slaves"],
+    src: ["slaves"],
   }
 }

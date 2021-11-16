@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: dns-server
+  role_name: dns_server
   author: jubeaz
   description: install bind
   license: GPL-2.0-or-later
