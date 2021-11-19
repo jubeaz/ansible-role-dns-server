@@ -1,0 +1,25 @@
+---
+# vars file for dns-server
+
+_templates: {
+  named.conf: {
+    dest: "{{ _named_conf_dir }}",
+    mode: "0640"
+  },
+  named.conf.options: {
+    dest: "{{ _named_conf_dir }}",
+    mode: "0640"
+  },
+  named.conf.default-zones: {
+    dest: "{{ _named_conf_dir }}",
+    mode: "0640"
+  },
+  named.conf.local: {
+    dest: "{{ _named_conf_dir }}",
+    mode: "0640"
+  },
+  named.conf.views: {
+    dest: "{{ _named_conf_dir }}",
+    mode: "0640"
+  }
+}
