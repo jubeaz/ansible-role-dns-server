@@ -11,12 +11,15 @@ $TTL    604800
 @              IN      NS       {{ ansible_facts['hostname'] }}.{{ item.value['name'] }}.
 
 
+{{ ansible_facts['hostname'] }}       IN      A    {{ ansible_default_ipv4.address }} 
 
-{% for item in ansible_facts['all_ipv4_addresses'] %}
-{{ ansible_facts['hostname'] }}       IN      A    {{ item }} 
-{% endfor %}
+
 
 {% for item in item.value['content'] %}
+{% if item[0] == "COMMENT" %}
+; {{ item[1] }}
+{% else %}
 {{ item[1] }}   IN {{ item[0] }} {{ item[2] }} ; {{ item[3] }}
+{% endif %}
 {% endfor %}
 
