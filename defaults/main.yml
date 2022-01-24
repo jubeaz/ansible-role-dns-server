@@ -35,6 +35,11 @@ named_master_zones: {
   test: {
     name: "zone.lan",
     email: "root.zone.lan",
+    TTL: "1w",
+    refresh: "3h",
+    retry: "1h",
+    expire: "1w",
+    negative: "1h",
     dest: ["slaves"],
     content: [
       ["A", "name", "IP", "comment"],

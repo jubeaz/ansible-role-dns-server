@@ -1,12 +1,12 @@
 {{ ansible_managed | comment(decoration="; ") }}
 
-$TTL    604800
+$TTL   {{ item.value['TTL'] }} 
 @       IN      SOA     {{ ansible_facts['hostname'] }}.{{ item.value['name'] }}. {{ item.value['email'] }}. (
-                     {{ ansible_date_time.date | replace('-', '') }}00     ; Serial
-                         604800     ; Refresh
-                          86400     ; Retry
-                        2419200     ; Expire
-                         604800 )   ; Negative Cache TTL
+                     {{ ansible_date_time.epoch }}       ; Serial
+                     {{ item.value['refresh'] }}         ; Refresh
+                     {{ item.value['retry'] }}         ; retry
+                     {{ item.value['expire'] }}         ; expire
+                     {{ item.value['negative'] }} )      ; regative
 ;
 @              IN      NS       {{ ansible_facts['hostname'] }}.{{ item.value['name'] }}.
 
