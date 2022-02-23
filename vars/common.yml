@@ -1,5 +1,12 @@
 ---
 # vars file for dns-server
+_rndc_port: 953
+_rndc_confgen_regexp: 'secret \"([^"]+)'
+_rndc_confgen_algo: hmac-sha256
+_rndc_confgen_size: 256
+
+
+
 
 _templates: {
   named.conf: {
@@ -19,6 +26,10 @@ _templates: {
     mode: "0640"
   },
   named.conf.views: {
+    dest: "{{ _named_conf_dir }}",
+    mode: "0640"
+  },
+  named.conf.controls: {
     dest: "{{ _named_conf_dir }}",
     mode: "0640"
   }

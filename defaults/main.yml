@@ -1,12 +1,13 @@
 ---
 # defaults file for dns-server
 named_ufw_from: ["192.168.1.0/24"]
-
+rndc_ufw_from: ["192.168.1.0/24"]
+rndc_cluster: ["192.168.1.1", "192.168.1.2"]
 
 named_acls: {
   local: ["192.168.0.0/16"],
   trusted: ["192.168.1.0/24"],
-  slaves: ["192.168.1.1; 192.168.1.2"]
+  slaves: ["192.168.1.1", "192.168.1.2"]
 }
 
 named_primaries: {}
