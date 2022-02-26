@@ -4,7 +4,7 @@ include "{{ _named_conf_dir }}/rndc.key" ;
 
 controls {
     inet * port {{ _rndc_port }} 
-        allow { {{ rndc_cluster | join("; ") }};} keys { "{{ __rndc_cluster_key }}" ;} ;
+        allow { {{ rndc_cluster | join("; ") }};} keys { "cluster-key" ;} ;
     inet 127.0.0.1 port {{ _rndc_port }} 
-        allow { 127.0.0.1 ;} keys { "{{ __rndc_local_key }}" ;} ;
-}
+        allow { 127.0.0.1 ;} keys { "local-key" ;} ;
+};
