@@ -11,10 +11,6 @@ $TTL   {{ item.value['TTL'] }}
 @              IN      NS       {{ ansible_facts['hostname'] }}.{{ item.value['name'] }}.
 
 
-{{ ansible_facts['hostname'] }}       IN      A    {{ ansible_default_ipv4.address }} 
-
-
-
 {% for item in item.value['content'] %}
 {% if item[0] == "COMMENT" %}
 ; {{ item[1] }}

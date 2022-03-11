@@ -1,7 +1,7 @@
 {{ ansible_managed | comment(decoration="// ") }}
 
 {% for key, value in named_master_zones.items() %}
-zone "{{ value['name'] }}" IN {
+zone "{{ value['name'] }}" {
     type primary;
     file "{{ value['name'] }}.zone";
     allow-transfer { {{ value['dest'] | join("; ") }}; };
@@ -9,7 +9,7 @@ zone "{{ value['name'] }}" IN {
 {% endfor %}
 
 {% for key, value in named_slave_zones.items() %}
-zone "{{ value['name'] }}" IN {
+zone "{{ value['name'] }}"  {
     type secondary;
     file "{{ value['name'] }}.zone";
     masters { {{ value['src'] | join("; ") }}; };
